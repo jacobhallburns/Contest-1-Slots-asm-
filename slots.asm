@@ -8,29 +8,27 @@ INCLUDE Irvine32.inc
 
 .code
 main PROC
-
 	call Randomize
    ; Generate the result of slot 1
    call RandomNumberGeneration
-   lea edx, slotCharacters
-   mov ecx, randomNumber
-   add edx, ecx
+   mov edx, OFFSET slotCharacters
+   add edx, randomNumber
    mov al, [edx]
    mov slot1, al
 
    ; Generate the result of slot 2
    call RandomNumberGeneration
-   lea edx, slotCharacters
-   mov ecx, randomNumber
-   add edx, ecx
+   call RandomNumberGeneration
+   mov edx, OFFSET slotCharacters
+   add edx, randomNumber
    mov al, [edx]
    mov slot2, al
 
    ; Generate the result of slot 3
    call RandomNumberGeneration
-   lea edx, slotCharacters
-   mov ecx, randomNumber
-   add edx, ecx
+   call RandomNumberGeneration
+   mov edx, OFFSET slotCharacters
+   add edx, randomNumber
    mov al, [edx]
    mov slot3, al
 
@@ -38,6 +36,9 @@ main PROC
 main ENDP
 
 RandomNumberGeneration PROC 
+   rdtsc ; reads timestamp counter
+   xor eax, edx
+   mov edx, eax
    mov eax, 3
    call RandomRange
    mov randomNumber, eax
