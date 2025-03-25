@@ -2,27 +2,42 @@ INCLUDE Irvine32.inc
 .data
    slotCharacters BYTE "0$7", 0
    randomNumber DWORD ?
-   selectedChar BYTE ?
+   slot1 BYTE ?
+   slot2 BYTE ?
+   slot3 BYTE ?
 
 .code
 main PROC
-   call RandomNumberGeneration
 
+	call Randomize
+   ; Generate the result of slot 1
+   call RandomNumberGeneration
    lea edx, slotCharacters
    mov ecx, randomNumber
    add edx, ecx
    mov al, [edx]
-   mov selectedChar, al
+   mov slot1, al
 
-   mov dl, selectedChar
-   call WriteChar
+   ; Generate the result of slot 2
+   call RandomNumberGeneration
+   lea edx, slotCharacters
+   mov ecx, randomNumber
+   add edx, ecx
+   mov al, [edx]
+   mov slot2, al
+
+   ; Generate the result of slot 3
+   call RandomNumberGeneration
+   lea edx, slotCharacters
+   mov ecx, randomNumber
+   add edx, ecx
+   mov al, [edx]
+   mov slot3, al
 
    exit
 main ENDP
 
 RandomNumberGeneration PROC 
-   call Randomize
-
    mov eax, 3
    call RandomRange
    mov randomNumber, eax
