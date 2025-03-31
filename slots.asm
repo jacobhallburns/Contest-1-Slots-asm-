@@ -13,9 +13,12 @@ INCLUDE Irvine32.inc
    pay2    BYTE "$ - 500 points", 0
    pay3    BYTE "7 - 700 points", 0
    score   BYTE "Your Score: ", 0
+   playAgainMsg BYTE "Play Again? (Play - P, Quit - Q): ", 0
 
 .code
 main PROC
+
+GameLoop:
 
    call Clrscr
    call Randomize
@@ -258,7 +261,21 @@ PrintScore:
    call Crlf
    call Crlf
 
-   exit
+PlayAgainPrompt:
+    mov edx, OFFSET playAgainMsg
+    call WriteString
+    call ReadChar
+    cmp al, 50h ; P
+    je GameLoop
+    cmp al, 70h ; p
+    je GameLoop
+    cmp al, 51h ; Q
+    je QuitGame
+    cmp al, 71h ; q
+    je QuitGame
+    jmp PlayAgainPrompt
+QuitGame:
+    exit
 main ENDP
 
 
