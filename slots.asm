@@ -125,7 +125,7 @@ GameLoop:
       cmp al, 0Dh       ; Check if enter was pressed
       jne WaitForSpin   ; If not, keep waiting
 
-    ; spin animation for slot 1
+    ; Spin animation for slot 1
     mov ecx, 15     ; 15 loops
     SpinLoop:
         mov eax, 3
@@ -147,7 +147,7 @@ GameLoop:
     mov al, slot1    
     call WriteChar
 
-    ; spin animation for slot 2
+    ; Spin animation for slot 2
     mov ecx, 20     ; 20 loops
     SpinLoop1:
         mov eax, 3
@@ -169,7 +169,7 @@ GameLoop:
     mov al, slot2  
     call WriteChar
 
-    ; spin animation for slot 3
+    ; Spin animation for slot 3
     mov ecx, 25     ; 25 loops
     SpinLoop2:
         mov eax, 3
@@ -197,8 +197,6 @@ GameLoop:
    call GotoxyAtLine
    call WriteString
 
-   ; Calculates score
-
    ; Storing score in eax
    mov eax, 0
 
@@ -210,17 +208,17 @@ GameLoop:
    je AddDollarFirst
    jmp CalcSlot2 ; jumps to slot 2 if first slot is 0
 
-; if first slot is 7, add 700 to score
+; If first slot is 7, add 700 to score
 AddSevenFirst:
    add eax, 700
    jmp CalcSlot2
 
-; adds 500 to score if first slot is a $
+; Adds 500 to score if first slot is a $
 AddDollarFirst:
    add eax, 500
    jmp CalcSlot2
 
-; checks slot 2
+; Checks slot 2
 CalcSlot2:
    mov bl, slot2
    cmp bl, "7"
@@ -237,7 +235,7 @@ AddDollarSecond:
    add eax, 500
    jmp CalcSlot3
 
-; checks slot 3
+; Checks slot 3
 CalcSlot3:
    mov bl, slot3
    cmp bl, "7"
@@ -253,7 +251,7 @@ AddSevenThird:
 AddDollarThird:
    add eax, 500
 
-; prints score
+; Prints score
 PrintScore:
     call WriteDec
 
